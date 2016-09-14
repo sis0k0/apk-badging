@@ -13,25 +13,34 @@ function parse(req) {
         form.multiples = false;
 
         form.parse(req, function(error, fields, files) {
-        
-            if (Object.keys(files).length !== 1) {
+            if (error) {
+                return reject(error);
+            }
+
+            getUploadedFile(files).then(resolve).catch(reject);
+        });
+    });
+}
+
+function getUploadedFile(files) {
+    return new Promise(function(resolve, reject) {
+        if (Object.keys(files).length !== 1) {
+            return reject({
+                statusCode: 400,
+                statusMessage: 'Bad Request. Cannot upload multiple files'
+            });
+        }
+
+        for (let [name, file] of entries(files)) {
+            if (file.type !== 'application/vnd.android.package-archive') {
                 return reject({
-                    statusCode: 400,
-                    statusMessage: 'Bad Request. Cannot upload multiple files'
+                    statusCode: 415,
+                    statusMessage: `Unsupported file type: ${file.type}`
                 });
             }
 
-            for (let [name, file] of entries(files)) {
-                if (file.type !== 'application/vnd.android.package-archive') {
-                    return reject({
-                        statusCode: 415,
-                        statusMessage: `Unsupported file type: ${file.type}`
-                    });
-                }
-                
-                resolve(file);
-            }
-        });        
+            resolve(file.path);
+        }
     });
 }
 
@@ -47,7 +56,7 @@ function getUploadDir() {
     return targetDir;
 }
 
-            
+
 function* entries(object) {
     for (let key of Object.keys(object)) {
         yield [key, object[key]];

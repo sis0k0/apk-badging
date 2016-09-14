@@ -6,13 +6,13 @@ const os = require('os');
 const path = require('path');
 const exec = require('child_process').exec;
 
+const toolsDirectory = require('./config/tools').directory;
+
 const SUPPORTED_PLATFORMS = {
     Linux: 'linux',
     Darwin: 'macosx',
     Windows_NT: 'windows'
 };
-
-const DIRECTORY = 'tools';
 
 (function downloadAapt() {
     let platform = getPlatformType();
@@ -42,7 +42,7 @@ function getPlatformType() {
 }
 
 function getTargetDir() {
-    let targetDir = path.join(__dirname, DIRECTORY);
+    let targetDir = path.join(__dirname, toolsDirectory);
 
     try {
         fs.statSync(targetDir);
@@ -72,14 +72,14 @@ function getTemporaryFileLocation() {
 
 function unzip(file) {
     return new Promise(function(resolve, reject) {
-        let command = `unzip -j -o ${file} platform-tools/aapt -d ${DIRECTORY}`;
+        let command = `unzip -j -o ${file} platform-tools/aapt -d ${toolsDirectory}`;
 
         exec(command, error => {
             if (error) {
                 reject(error);
             }
 
-            let filePath = path.join(DIRECTORY, 'aapt');
+            let filePath = path.join(toolsDirectory, 'aapt');
             fs.chmodSync(filePath, '755');
             fs.unlinkSync(file);
             resolve();

@@ -27,6 +27,8 @@
     "jshint": "^2.9.3"
   },
   "dependencies": {
-    "formidable": "^1.0.17"
+    "adm-zip": "^0.4.7",
+    "formidable": "^1.0.17",
+    "jasmine": "^2.5.1"
   }
 }
