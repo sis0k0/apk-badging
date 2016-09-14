@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "simple RESTful API for extracting badging info from uploaded apk file",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/sis0k0/apk-badging.git"
+    "type": "git",
+    "url": "https://github.com/sis0k0/apk-badging.git"
   },
   "main": "server.js",
   "scripts": {
@@ -25,5 +25,8 @@
   "license": "MIT",
   "devDependencies": {
     "jshint": "^2.9.3"
+  },
+  "dependencies": {
+    "formidable": "^1.0.17"
   }
 }
