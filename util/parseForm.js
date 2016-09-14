@@ -45,7 +45,7 @@ function getUploadedFile(files) {
 }
 
 function getUploadDir() {
-    let targetDir = path.join(__dirname, 'tmp');
+    let targetDir = path.join(__dirname, '/../tmp');
 
     try {
         fs.statSync(targetDir);
@@ -55,7 +55,6 @@ function getUploadDir() {
 
     return targetDir;
 }
-
 
 function* entries(object) {
     for (let key of Object.keys(object)) {

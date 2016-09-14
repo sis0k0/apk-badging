@@ -2,22 +2,25 @@
 
 const path = require('path');
 const exec = require('child_process').execFile;
+const fs = require('fs');
 const AdmZip = require('adm-zip');
 
 const aapt = require('../config/aapt')();
 
 const MAX_BUFFER = 1024 * 1024;
 
-function extractBadging(filename) {
+function extractBadging(apkFilePath) {
     return new Promise(function(resolve, reject) {
-        exec(aapt, ['dump', 'badging', filename], {
+        exec(aapt, ['dump', 'badging', apkFilePath], {
             MAX_BUFFER
         }, function (error, out) {
             if (error) {
                 return reject(error);
             }
 
-            let properties = parseDump(out, filename);
+            let properties = parseDump(out, apkFilePath);
+            fs.unlinkSync(apkFilePath);
+
             resolve(properties);
         });
     });

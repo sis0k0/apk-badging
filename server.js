@@ -9,7 +9,7 @@ http.createServer(function(req, res) {
     if (req.url === '/' && req.method === 'POST') {
         parseForm(req).then(extractBadging)
             .then(data => sendBadging(res, data))
-            .catch(error => (res, error));  
+            .catch(error => (res, error));
     }
 }).listen(8080);
 
@@ -17,7 +17,7 @@ function sendBadging(res, badgingInformation) {
     res.writeHead(200, {
         'Content-Type': 'application/json'
     });
-    
+
     let json = JSON.stringify(badgingInformation);
     res.end(json);
 }
