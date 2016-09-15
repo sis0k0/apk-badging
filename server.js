@@ -9,7 +9,7 @@ http.createServer(function(req, res) {
     if (req.url === '/' && req.method === 'POST') {
         parseForm(req).then(extractBadging)
             .then(data => sendBadging(res, data))
-            .catch(error => (res, error));
+            .catch(error => handleError(res, error));
     }
 }).listen(8080);
 
