@@ -24,11 +24,15 @@
   "author": "Stanimira Vlaeva",
   "license": "MIT",
   "devDependencies": {
+    "async": "^2.0.1",
+    "gulp": "^3.9.1",
+    "gulp-jasmine": "^2.4.1",
     "jshint": "^2.9.3"
   },
   "dependencies": {
     "adm-zip": "^0.4.7",
     "formidable": "^1.0.17",
-    "jasmine": "^2.5.1"
+    "jasmine": "^2.5.1",
+    "request": "^2.74.0"
   }
 }
