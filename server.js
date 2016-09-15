@@ -2,6 +2,8 @@
 
 const http = require('http');
 
+const PORT = process.env.PORT || 8080;
+
 const parseForm = require('./util/parseForm');
 const extractBadging = require('./util/extractBadging');
 
@@ -11,7 +13,7 @@ http.createServer(function(req, res) {
             .then(data => sendBadging(res, data))
             .catch(error => handleError(res, error));
     }
-}).listen(8080);
+}).listen(PORT);
 
 function sendBadging(res, badgingInformation) {
     res.writeHead(200, {
