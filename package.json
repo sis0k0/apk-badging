@@ -27,7 +27,10 @@
     "async": "^2.0.1",
     "gulp": "^3.9.1",
     "gulp-jasmine": "^2.4.1",
-    "jshint": "^2.9.3"
+    "gulp-jshint": "^2.0.1",
+    "gulp-nodemon": "^2.1.0",
+    "jshint": "^2.9.3",
+    "jshint-stylish": "^2.2.1"
   },
   "dependencies": {
     "adm-zip": "^0.4.7",
