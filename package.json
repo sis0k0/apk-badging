@@ -36,6 +36,7 @@
     "adm-zip": "^0.4.7",
     "formidable": "^1.0.17",
     "jasmine": "^2.5.1",
+    "progress": "^1.1.8",
     "request": "^2.74.0"
   }
 }
