@@ -15,7 +15,12 @@ function extractBadging(apkFilePath) {
             MAX_BUFFER
         }, function (error, out) {
             if (error) {
-                return reject(error);
+                fs.unlinkSync(apkFilePath);
+
+                return reject({
+                    statusCode: 503,
+                    statusMessage: 'Service unavailable'
+                });
             }
 
             let properties = parseDump(out, apkFilePath);
@@ -30,7 +35,7 @@ function parseDump(out, apkPath) {
     let lines = out.split('\n');
 
     let properties = {
-        label: getApplicationLabel(lines),
+        name: getApplicationLabel(lines),
         icon: getApplicationIcon(lines, apkPath),
         version: getApplicationVersion(lines)
     };

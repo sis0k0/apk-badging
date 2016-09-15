@@ -25,6 +25,7 @@ function parse(req) {
 function getUploadedFile(files) {
     return new Promise(function(resolve, reject) {
         if (Object.keys(files).length !== 1) {
+            unlinkFiles(files);
             return reject({
                 statusCode: 400,
                 statusMessage: 'Bad Request. Cannot upload multiple files'
@@ -33,6 +34,7 @@ function getUploadedFile(files) {
 
         for (let [name, file] of entries(files)) {
             if (file.type !== 'application/vnd.android.package-archive') {
+                unlinkFiles(files);
                 return reject({
                     statusCode: 415,
                     statusMessage: `Unsupported file type: ${file.type}`
@@ -54,6 +56,12 @@ function getUploadDir() {
     }
 
     return targetDir;
+}
+
+function unlinkFiles(files) {
+    for (let [name, file] of entries(files)) {
+        fs.unlinkSync(file.path);
+    }
 }
 
 function* entries(object) {
